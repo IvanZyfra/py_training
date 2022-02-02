@@ -27,7 +27,9 @@ class TestAddNewContact(unittest.TestCase):
         wd.find_element_by_link_text("home page").click()
 
     def add_new_contact(self, wd, contact):
+        # Нажимаем кнопку "Добавить контакт"
         wd.find_element_by_link_text("add new").click()
+        # Заполняем поля
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").send_keys(contact.first_name)
         wd.find_element_by_name("middlename").click()
