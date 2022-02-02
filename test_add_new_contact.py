@@ -16,7 +16,7 @@ class TestAddNewContact(unittest.TestCase):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.add_new_contact(wd, Contact(first_name="Fname", middle_name="Mname", last_name="Lname", nickname="Nickname", title="Test_title", company="Test_company", address="Test_address", home="123456", mobile="11223344", work="11224433", fax="11225566", email="test@mail.com", email2="test2@mail.com", email3="test3@mail.com", homepage="www.test.com", address2="second_address", phone2="123465798", notes="test_notes"))
+        self.add_new_contact(wd, Contact(first_name="Fname", middle_name="Mname", last_name="Lname", nickname="Nickname", title="Test_title", company="Test_company", address="Test_address", tel_home="123456", tel_mobile="11223344", tel_work="11224433", tel_fax="11225566", email="test@mail.com", email2="test2@mail.com", email3="test3@mail.com", homepage="www.test.com", address2="second_address", phone2="123465798", notes="test_notes"))
         self.return_to_home_page(wd)
         self.logout(wd)
 
@@ -44,10 +44,10 @@ class TestAddNewContact(unittest.TestCase):
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").send_keys(contact.address)
         wd.find_element_by_name("home").click()
-        wd.find_element_by_name("home").send_keys(contact.home)
-        wd.find_element_by_name("mobile").send_keys(contact.mobile)
-        wd.find_element_by_name("work").send_keys(contact.work)
-        wd.find_element_by_name("fax").send_keys(contact.fax)
+        wd.find_element_by_name("home").send_keys(contact.tel_home)
+        wd.find_element_by_name("mobile").send_keys(contact.tel_mobile)
+        wd.find_element_by_name("work").send_keys(contact.tel_work)
+        wd.find_element_by_name("fax").send_keys(contact.tel_fax)
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").send_keys(contact.email)
         wd.find_element_by_name("email2").send_keys(contact.email2)
@@ -72,12 +72,14 @@ class TestAddNewContact(unittest.TestCase):
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").send_keys("2010")
+        # Заполнение доп. полей
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").send_keys(contact.address2)
         wd.find_element_by_name("phone2").click()
         wd.find_element_by_name("phone2").send_keys(contact.phone2)
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").send_keys(contact.notes)
+        # sumbit contact
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
     def login(self, wd, username, password):
