@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support.ui import Select
+from fixture.session import SessionHelper
 
 
 class Application:
@@ -9,14 +10,13 @@ class Application:
     def __init__(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
+        self.session = SessionHelper(self)
 
-    def logout(self):
-        wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
 
     def return_to_groups_page(self):
         wd = self.wd
         wd.find_element_by_link_text("group page").click()
+
 
     def create_group(self, group):
         wd = self.wd
@@ -33,6 +33,7 @@ class Application:
         # submit group creation
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
+
 
     def add_new_contact(self, contact):
         wd = self.wd
@@ -94,6 +95,7 @@ class Application:
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_to_home_page()
 
+
     def return_to_home_page(self):
         wd = self.wd
         wd.find_element_by_link_text("home page").click()
@@ -102,14 +104,6 @@ class Application:
         wd = self.wd
         wd.find_element_by_link_text("groups").click()
 
-    def login(self, username, password):
-        wd = self.wd
-        self.open_home_page()
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
 
     def open_home_page(self):
         wd = self.wd
