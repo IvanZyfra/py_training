@@ -3,7 +3,7 @@ from model.contact import Contact
 
 
 def test_modify_contact(app):
-    app.contact.modify_first_group(
+    app.contact.modify_contact(
         Contact(first_name="Test_name", middle_name="Test_name", last_name="Test_name", nickname="", title="",
                 company="", address="", tel_home="", tel_mobile="",
                 tel_work="", tel_fax="", email="", email2="",
