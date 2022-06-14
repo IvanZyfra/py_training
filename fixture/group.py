@@ -30,6 +30,7 @@ class GroupHelper:
         wd = self.app.wd
         if text is not None:
             wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
     def open_groups_page(self):
@@ -45,14 +46,14 @@ class GroupHelper:
         wd.find_element_by_name("delete").click()
         self.return_to_groups_page()
 
-    def select_first_group(self, wd):
+    def select_first_group(self):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
 
     def modify_first_group(self, new_group_data):
         wd = self.app.wd
         self.open_groups_page()
-        self.select_first_group(wd)
+        self.select_first_group()
         # click modify
         wd.find_element_by_name("edit").click()
         # modify name
