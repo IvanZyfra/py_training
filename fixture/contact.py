@@ -66,6 +66,7 @@ class ContactHelper:
         # sumbit contact
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_to_home_page()
+        self.contact_cache = None
 
 
     def return_to_home_page(self):
@@ -79,6 +80,8 @@ class ContactHelper:
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        self.contact_cache = None
+
 
 
     def modify_contact(self, contact):
@@ -100,6 +103,8 @@ class ContactHelper:
         # click update
         wd.find_element_by_name("update").click()
         self.return_to_home_page()
+        self.contact_cache = None
+
 
     def count(self):
         wd = self.app.wd
@@ -111,12 +116,15 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
 
+    contact_cache = None
+
     def get_contacts_list(self):
-        wd = self.app.wd
-        self.open_contact_page()
-        contacts = []
-        for element in wd.find_elements_by_name("entry"):
-            text = element.text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(first_name=text, last_name=text, id=id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_contact_page()
+            self.contact_cache = []
+            for element in wd.find_elements_by_name("entry"):
+                text = element.text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contact_cache.append(Contact(first_name=text, last_name=text, id=id))
+        return list(self.contact_cache)
